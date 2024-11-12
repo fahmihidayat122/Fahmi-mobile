@@ -1,37 +1,48 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, TextInput, Dimensions, ImageBackground } from "react-native";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+export default function App() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Selamat Datang</Text>
+      <Text style={styles.subTitle}>Di Top Up Game termurah</Text>
+      <TextInput
+        placeholder="abc@gmail.com"
+        style={styles.TextInput}
+      />
+      <TextInput
+        placeholder="Password"
+        style={styles.TextInput}
+      />
+      <StatusBar style="auto"/>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f1f1f1',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  titulo: {
+    fontSize: 70,
+    color: '#34434D',
+    fontWeight: 'bold'
+  },
+  subTitle: {
+    fontSize: 20,
+    color: 'gray',
+  },
+  TextInput: {
+    padding: 10,
+    paddingStart: 30,
+    width: '80%',
+    height: 50,
+    marginTop: 20,
+    borderRadius: 30,
+    backgroundColor: '#fff',
+  },
+});
